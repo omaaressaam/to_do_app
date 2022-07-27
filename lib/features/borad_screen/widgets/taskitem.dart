@@ -11,12 +11,13 @@ class taskitem extends StatelessWidget {
       : super(key: key);
 
   late BuildContext cxt;
-  var myMenuItems = <String>[
-    'Add to Favorite',
+  var myMenuItemsfav = <String>[
     'Mark as Completed',
-    'Unfavorite',
+    'Add to Favorite',
     'Delete'
   ];
+
+  var myMenuItemsunfav = <String>['Mark as Completed', 'Unfavorite', 'Delete'];
 
   void onSelect(item) {
     switch (item) {
@@ -80,12 +81,19 @@ class taskitem extends StatelessWidget {
             PopupMenuButton<String>(
                 onSelected: onSelect,
                 itemBuilder: (BuildContext context) {
-                  return myMenuItems.map((String choice) {
-                    return PopupMenuItem<String>(
-                      value: choice,
-                      child: Text(choice),
-                    );
-                  }).toList();
+                  return task.isFavorite == 0
+                      ? myMenuItemsfav.map((String choice) {
+                          return PopupMenuItem<String>(
+                            value: choice,
+                            child: Text(choice),
+                          );
+                        }).toList()
+                      : myMenuItemsunfav.map((String choice) {
+                          return PopupMenuItem<String>(
+                            value: choice,
+                            child: Text(choice),
+                          );
+                        }).toList();
                 }),
           ],
         ),
